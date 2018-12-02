@@ -40,7 +40,7 @@ namespace FarrokhGames.SpriteAnimation.Shared
             {
                 _animator.Play(clip);
                 if (withChildren) { PerformOnList(_children, animator => animator.Play(clip.Name, withChildren)); }
-                PerformOnList(_sharedAnimators, animator => animator.Play(clip.Name, withChildren));
+                PerformOnList(_sharedAnimators, animator => animator.Play(clip, withChildren));
             }
         }
 
@@ -89,7 +89,9 @@ namespace FarrokhGames.SpriteAnimation.Shared
             _animator.OnClipComplete += HandleClipComplete;
             _animator.OnFrameChanged += HandleFrameChanged;
             _animator.OnTrigger += HandleTrigger;
-            _children = GetComponentsInChildren<AbstractSpriteAnimator>();
+
+            var children = GetComponentsInChildren<AbstractSpriteAnimator>();
+            _children = children.Where(x => x != this).ToArray();
         }
 
         void OnDisable()

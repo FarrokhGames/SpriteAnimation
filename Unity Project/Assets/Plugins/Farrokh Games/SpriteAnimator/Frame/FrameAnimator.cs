@@ -84,7 +84,7 @@ namespace FarrokhGames.SpriteAnimation.Frame
         void HandleFrame(int frame)
         {
             var currentFrame = _currentClip[frame];
-            if (OnFrameChanged != null) { OnFrameChanged(currentFrame.Index - 1); }
+            if (OnFrameChanged != null) { OnFrameChanged(currentFrame.Index); }
             if (!string.IsNullOrEmpty(currentFrame.TriggerName))
             {
                 if (OnTrigger != null) { OnTrigger(currentFrame.TriggerName); }
@@ -108,7 +108,7 @@ namespace FarrokhGames.SpriteAnimation.Frame
         [SerializeField] string _name;
         [SerializeField] bool _loop;
         [SerializeField] bool _randomStart;
-        [SerializeField] float _frameRate;
+        [SerializeField] float _frameRate = 8f;
         [SerializeField] Frame[] _frames;
 
         /// <inheritdoc />
@@ -135,7 +135,7 @@ namespace FarrokhGames.SpriteAnimation.Frame
     public class Frame : IFrame
     {
         [SerializeField] int _index;
-        [SerializeField] float _speed;
+        [SerializeField] float _speed = 1f;
         [SerializeField] string _triggerName;
 
         /// <inheritdoc />
