@@ -22,12 +22,12 @@ namespace FarrokhGames.SpriteAnimation
         public void SetupTests()
         {
             _clip = Substitute.For<IClip>();
-            _clip.FrameRate.Returns(1);
+            _clip.FrameRate.Returns(1f);
             _clip.Name.Returns("clip");
             _clip.Length.Returns(3);
             var frame0 = CreateFrame(1, 1f);
             _clip[0].Returns(frame0);
-            var frame1 = CreateFrame(2, 8f, "trigger");
+            var frame1 = CreateFrame(2, 0.5f, "trigger");
             _clip[1].Returns(frame1);
             var frame2 = CreateFrame(3, 1f);
             _clip[2].Returns(frame2);
@@ -45,6 +45,7 @@ namespace FarrokhGames.SpriteAnimation
             _onCompleteCount = 0;
             _animator.OnClipComplete += () => _onCompleteCount++;
 
+            _onTriggerCount = 0;
             _lastTrigger = string.Empty;
             _animator.OnTrigger += triggerName =>
             {
@@ -142,7 +143,7 @@ namespace FarrokhGames.SpriteAnimation
         public void Play_SameClipTwice_NothingHappens()
         {
             _animator.Play(_clip);
-            Tick(2);
+            Tick(3);
             _onFrameChangedCount = 0;
             _animator.Play(_clip);
             Assert.That(_onFrameChangedCount, Is.Zero);
@@ -154,8 +155,8 @@ namespace FarrokhGames.SpriteAnimation
         {
             _clip.Loop.Returns(true);
             _animator.Play(_clip);
-            Tick(30);
-            Assert.That(_onFrameChangedCount, Is.EqualTo(31));
+            Tick();
+            Assert.That(_onFrameChangedCount, Is.EqualTo(76));
         }
 
         [Test]
@@ -173,7 +174,7 @@ namespace FarrokhGames.SpriteAnimation
         [Test]
         public void Pause_NullClip_NothingHappens()
         {
-            _animator.Pause();
+            Assert.DoesNotThrow(() => _animator.Pause());
         }
 
         [Test]
@@ -185,6 +186,14 @@ namespace FarrokhGames.SpriteAnimation
             Assert.That(_animator.IsPlaying, Is.False);
         }
 
+        [Test]
+        public void Pause_CurrentClipStaysTheSame()
+        {
+            _animator.Play(_clip);
+            _animator.Pause();
+            Assert.That(_animator.CurrentClip, Is.SameAs(_clip));
+        }
+
         //////////////////// 
         ///    Resume    ///
         ////////////////////
@@ -192,11 +201,11 @@ namespace FarrokhGames.SpriteAnimation
         [Test]
         public void Resume_NullClip_NothingHappens()
         {
-            _animator.Resume();
+            Assert.DoesNotThrow(() => _animator.Resume());
         }
 
         [Test]
-        public void Resume__StartsPlaying()
+        public void Resume_StartsPlaying()
         {
             _animator.Play(_clip);
             Assert.That(_animator.IsPlaying, Is.True);
@@ -204,6 +213,15 @@ namespace FarrokhGames.SpriteAnimation
             Assert.That(_animator.IsPlaying, Is.False);
             _animator.Resume();
             Assert.That(_animator.IsPlaying, Is.True);
+        }
+
+        [Test]
+        public void Resume_CurrentClipStaysTheSame()
+        {
+            _animator.Play(_clip);
+            _animator.Pause();
+            _animator.Resume();
+            Assert.That(_animator.CurrentClip, Is.SameAs(_clip));
         }
 
         //////////////////// 
@@ -232,23 +250,23 @@ namespace FarrokhGames.SpriteAnimation
         ///////////////////
         /// 
         [Test]
-        public void OnTrigger()
+        public void OnTrigger_CalledOnceForNonLooping()
         {
+            _clip.Loop.Returns(false);
             _animator.Play(_clip);
             Tick();
-            Assert.That(_onCompleteCount, Is.EqualTo(1));
+            Assert.That(_onTriggerCount, Is.EqualTo(1));
+            Assert.That(_lastTrigger, Is.EqualTo("trigger"));
         }
 
-        /* 
-        Action OnClipComplete { get; set; }
-        Action<int> OnFrameChanged { get; set; }
-        Action<string> OnTrigger { get; set; }
-        void Play(IClip clip);
-        void Pause();
-        void Resume();
-        bool IsPlaying { get; }
-        IClip CurrentClip { get; }
-        void Tick(float deltaTime);
-        */
+        [Test]
+        public void OnTrigger_CalledEachLoop()
+        {
+            _clip.Loop.Returns(true);
+            _animator.Play(_clip);
+            Tick(4 * 10, 1f);
+            Assert.That(_onTriggerCount, Is.EqualTo(10));
+            Assert.That(_lastTrigger, Is.EqualTo("trigger"));
+        }
     }
 }
