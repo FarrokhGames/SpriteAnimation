@@ -11,6 +11,7 @@ namespace FarrokhGames.SpriteAnimation.Shared
         [SerializeField, Tooltip("The clips that can be used by this animator")] protected Clip[] _clips;
         [SerializeField, Tooltip("If true, any children under this animator will be played, paused and resumed together with this parent")] protected bool _animateChildren = true;
         [SerializeField, Tooltip("Wether other animators are allowed to share their clips with this animator")] protected bool _allowClipSharing = true;
+        [SerializeField, Tooltip("If false, any attempts to flip this image is suppressed")] protected bool _allowFlipping = true;
 
         internal IFrameAnimator _frameAnimator;
 
@@ -25,6 +26,9 @@ namespace FarrokhGames.SpriteAnimation.Shared
 
         /// <inheritdoc />
         public IClip CurrentClip { get { return _frameAnimator.CurrentClip; } }
+
+        /// <inheritdoc />
+        public abstract bool Flip { get; set; }
 
         /// <summary>
         /// Invoked when this animator is created
@@ -89,7 +93,7 @@ namespace FarrokhGames.SpriteAnimation.Shared
 
         void Start()
         {
-            var childAnimators = GetComponentsInChildren<AbstractSpriteAnimator>().Where(x => x != this).Select(x => x._frameAnimator).ToArray();
+            var childAnimators = GetComponentsInChildren<IAnimator>().Where(x => x != this).ToArray();
             _frameAnimator.SetChildren(childAnimators);
 
             // Start first animation

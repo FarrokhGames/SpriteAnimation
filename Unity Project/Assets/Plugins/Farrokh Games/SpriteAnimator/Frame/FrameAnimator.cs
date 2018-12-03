@@ -28,7 +28,7 @@ namespace FarrokhGames.SpriteAnimation.Frame
 
         IClip[] _clips = null;
         IClip _currentClip = null;
-        IFrameAnimator[] _children;
+        IAnimator[] _children;
         Dictionary<string, IClip> _nameToClip = new Dictionary<string, IClip>();
         bool _isPlaying;
         bool _allowClipSharing;
@@ -58,7 +58,7 @@ namespace FarrokhGames.SpriteAnimation.Frame
         }
 
         /// <inheritdoc />
-        public void SetChildren(IFrameAnimator[] children)
+        public void SetChildren(IAnimator[] children)
         {
             if (children != null && children.Contains(this))
             {
@@ -66,6 +66,13 @@ namespace FarrokhGames.SpriteAnimation.Frame
             }
 
             _children = children;
+        }
+
+        /// <inheritdoc />
+        public bool Flip
+        {
+            get { throw new NotImplementedException(); }
+            set { throw new NotImplementedException(); }
         }
 
         /// <inheritdoc />

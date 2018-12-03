@@ -18,6 +18,16 @@ namespace FarrokhGames.SpriteAnimation
         Action<string> OnTrigger { get; set; }
 
         /// <summary>
+        /// Returns true if an animation is currently playing
+        /// </summary>
+        bool IsPlaying { get; }
+
+        /// <summary>
+        /// Returns the current clip
+        /// </summary>
+        IClip CurrentClip { get; }
+
+        /// <summary>
         /// Plays the given clip
         /// </summary>
         /// <param name="clip">The clip to play</param>
@@ -40,13 +50,8 @@ namespace FarrokhGames.SpriteAnimation
         void Resume();
 
         /// <summary>
-        /// Returns true if an animation is currently playing
+        /// Gets or sets wether to flip this animator or not
         /// </summary>
-        bool IsPlaying { get; }
-
-        /// <summary>
-        /// Returns the current clip
-        /// </summary>
-        IClip CurrentClip { get; }
+        bool Flip { get; set; }
     }
 }

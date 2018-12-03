@@ -15,10 +15,5 @@ namespace FarrokhGames.SpriteAnimation
         /// </summary>
         /// <value></value>
         int SortingOrder { get; set; }
-
-        /// <summary>
-        /// Gets or sets wether to flip this animator or not
-        /// </summary>
-        bool Flip { get; set; }
     }
 }

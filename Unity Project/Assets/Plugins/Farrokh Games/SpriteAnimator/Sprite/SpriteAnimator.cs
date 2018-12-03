@@ -8,10 +8,8 @@ namespace FarrokhGames.SpriteAnimation.Sprite
     [RequireComponent(typeof(SpriteRenderer))]
     public class SpriteAnimator : AbstractSpriteAnimator, ISpriteAnimator
     {
-        [SerializeField, Tooltip("If false, any attempts to flip this image is suppressed")] bool _allowFlipping = true;
-
         SpriteRenderer _spriteRenderer;
-        ISpriteAnimator[] _children;
+        IAnimator[] _children;
         int _originalSortingOrder;
 
         /// <inheritdoc />
@@ -19,7 +17,7 @@ namespace FarrokhGames.SpriteAnimation.Sprite
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();
             _originalSortingOrder = _spriteRenderer.sortingOrder;
-            _children = GetComponentsInChildren<ISpriteAnimator>().Where(x => !x.Equals(this)).ToArray();
+            _children = GetComponentsInChildren<IAnimator>().Where(x => !x.Equals(this)).ToArray();
         }
 
         /// <inheritdoc />
@@ -31,21 +29,8 @@ namespace FarrokhGames.SpriteAnimation.Sprite
         /// <inheritdoc />
         public bool Visible
         {
-            get { return _spriteRenderer.enabled; }
-            set
-            {
-                // Set visibility of children
-                if (_animateChildren && _children != null && _children.Length > 0)
-                {
-                    for (var i = 0; i < _children.Length; i++)
-                    {
-                        var child = _children[i];
-                        if (child != null) { child.Visible = value; }
-                    }
-                }
-
-                _spriteRenderer.enabled = value;
-            }
+            get { return gameObject.activeSelf; }
+            set { gameObject.SetActive(value); }
         }
 
         /// <inheritdoc />
@@ -60,7 +45,10 @@ namespace FarrokhGames.SpriteAnimation.Sprite
                     for (var i = 0; i < _children.Length; i++)
                     {
                         var child = _children[i];
-                        if (child != null) { child.SortingOrder = value; }
+                        if (child != null && child is ISpriteAnimator)
+                        {
+                            (child as ISpriteAnimator).SortingOrder = value;
+                        }
                     }
                 }
 
@@ -69,7 +57,7 @@ namespace FarrokhGames.SpriteAnimation.Sprite
         }
 
         /// <inheritdoc />
-        public bool Flip
+        public override bool Flip
         {
             get { return _spriteRenderer.flipX; }
             set

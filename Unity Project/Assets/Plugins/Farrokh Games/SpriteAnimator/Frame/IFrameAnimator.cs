@@ -5,7 +5,7 @@ namespace FarrokhGames.SpriteAnimation
     /// <summary>
     /// Returns frame changes when playing given clips. Used as a base for other, more concerete, animators.
     /// </summary>
-    public interface IFrameAnimator : IDisposable
+    public interface IFrameAnimator : IDisposable, IAnimator
     {
         /// <summary>
         /// Invoked when the current clip has completed its animation
@@ -24,28 +24,6 @@ namespace FarrokhGames.SpriteAnimation
         /// string - The name of the trigger
         /// </summary>
         Action<string> OnTrigger { get; set; }
-
-        /// <summary>
-        /// Plays the given clip
-        /// </summary>
-        /// <param name="clip">The clip to play</param>
-        void Play(IClip clip);
-
-        /// <summary>
-        /// Tries to find and play a clip of given name
-        /// </summary>
-        /// <param name="clipName">The name of the clip to play</param>
-        bool Play(string name);
-
-        /// <summary>
-        /// Pauses the current animation
-        /// </summary>
-        void Pause();
-
-        /// <summary>
-        /// Resumes the current animation
-        /// </summary>
-        void Resume();
 
         /// <summary>
         /// Returns true if an animation is currently playing
@@ -72,7 +50,7 @@ namespace FarrokhGames.SpriteAnimation
         /// <summary>
         /// Sets the children of this animator
         /// </summary>
-        void SetChildren(IFrameAnimator[] children);
+        void SetChildren(IAnimator[] children);
     }
 
     /// <summary>
