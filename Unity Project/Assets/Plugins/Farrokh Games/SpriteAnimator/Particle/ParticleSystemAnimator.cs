@@ -22,7 +22,7 @@ namespace FarrokhGames.SpriteAnimation.Particle
         public enum StopMode
         {
             Stop,
-            Hide,
+            Clear,
         }
 
         /// <inheritdoc />
@@ -84,7 +84,7 @@ namespace FarrokhGames.SpriteAnimation.Particle
             {
                 _isPaused = false;
                 _particleSystem.Stop(_withChildren);
-                if (_stopMode == StopMode.Hide) { gameObject.SetActive(false); }
+                if (_stopMode == StopMode.Clear) { _particleSystem.Clear(); }
                 return false;
             }
         }
@@ -94,7 +94,6 @@ namespace FarrokhGames.SpriteAnimation.Particle
             if (!IsPlaying)
             {
                 _particleSystem.Play(_withChildren);
-                gameObject.SetActive(true);
                 _isPaused = false;
             }
         }

@@ -8,32 +8,11 @@ namespace FarrokhGames.SpriteAnimation
     public interface IFrameAnimator : IDisposable, IAnimator
     {
         /// <summary>
-        /// Invoked when the current clip has completed its animation
-        /// </summary>
-        Action OnClipComplete { get; set; }
-
-        /// <summary>
         /// Invoked when the current frame was changed.
         /// int - The index of the new frame
         /// </summary>
         /// <value></value>
         Action<int> OnFrameChanged { get; set; }
-
-        /// <summary>
-        /// Invoked when playing a frame with a trigger on it
-        /// string - The name of the trigger
-        /// </summary>
-        Action<string> OnTrigger { get; set; }
-
-        /// <summary>
-        /// Returns true if an animation is currently playing
-        /// </summary>
-        bool IsPlaying { get; }
-
-        /// <summary>
-        /// Returns the current clip
-        /// </summary>
-        IClip CurrentClip { get; }
 
         /// <summary>
         /// Returns true if this animator can play clips of parent animator
