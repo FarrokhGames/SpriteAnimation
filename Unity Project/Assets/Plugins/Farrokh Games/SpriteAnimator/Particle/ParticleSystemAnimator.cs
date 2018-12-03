@@ -53,7 +53,11 @@ namespace FarrokhGames.SpriteAnimation.Particle
             {
                 if (_allowFlipping && Flip != value)
                 {
-                    _particleSystem.Clear();
+                    if (_particleSystem.isPlaying)
+                    {
+                        _particleSystem.Clear();
+                        Play();
+                    }
                     transform.localScale = new Vector3(value ? -_startScale.x : _startScale.x, _startScale.y, _startScale.z);
                 }
             }
@@ -87,9 +91,12 @@ namespace FarrokhGames.SpriteAnimation.Particle
 
         void Play()
         {
-            _particleSystem.Play(_withChildren);
-            gameObject.SetActive(true);
-            _isPaused = false;
+            if (!IsPlaying)
+            {
+                _particleSystem.Play(_withChildren);
+                gameObject.SetActive(true);
+                _isPaused = false;
+            }
         }
 
         /// <inheritdoc />
