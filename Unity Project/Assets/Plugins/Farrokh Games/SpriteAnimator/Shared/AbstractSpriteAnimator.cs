@@ -144,6 +144,8 @@ namespace FarrokhGames.SpriteAnimation.Shared
             return list.Distinct().ToArray();
         }
 
+        protected abstract void Init();
+
         /// <inheritdoc />
         public void Dispose()
         {
@@ -155,6 +157,17 @@ namespace FarrokhGames.SpriteAnimation.Shared
         }
 
         #region MonoBehavior (Unity)
+
+        void Awake()
+        {
+            Init();
+
+            // Autoplay first clip
+            if (_clips.Length > 0)
+            {
+                Play(_clips[0]);
+            }
+        }
 
         void OnEnable()
         {

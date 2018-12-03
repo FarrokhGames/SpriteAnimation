@@ -16,6 +16,14 @@ namespace FarrokhGames.SpriteAnimation.Sprite
         int _sortingOffset;
 
         /// <inheritdoc />
+        protected override void Init()
+        {
+            _spriteRenderer = GetComponent<SpriteRenderer>();
+            _sortingOffset = _spriteRenderer.sortingOrder;
+            _spriteChildren = GetListOfChildren<SpriteAnimator>();
+        }
+
+        /// <inheritdoc />
         public bool Visible
         {
             get { return _spriteRenderer.enabled; }
@@ -106,16 +114,5 @@ namespace FarrokhGames.SpriteAnimation.Sprite
         {
             _spriteRenderer.sprite = _sprites[index];
         }
-
-        #region MonoBehavior (Unity)
-
-        void Awake()
-        {
-            _spriteRenderer = GetComponent<SpriteRenderer>();
-            _sortingOffset = _spriteRenderer.sortingOrder;
-            _spriteChildren = GetListOfChildren<SpriteAnimator>();
-        }
-
-        #endregion
     }
 }

@@ -16,6 +16,14 @@ namespace FarrokhGames.SpriteAnimation.Sprite
         Vector3 _startScale;
 
         /// <inheritdoc />
+        protected override void Init()
+        {
+            _image = GetComponent<Image>();
+            _startScale = _image.rectTransform.localScale;
+            _imageChildren = GetListOfChildren<ImageAnimator>();
+        }
+
+        /// <inheritdoc />
         public bool Visible
         {
             get { return _image.enabled; }
@@ -87,16 +95,5 @@ namespace FarrokhGames.SpriteAnimation.Sprite
             _image.sprite = _sprites[index];
             if (_forceNativeSize) { _image.SetNativeSize(); }
         }
-
-        #region MonoBehavior (Unity)
-
-        void Awake()
-        {
-            _image = GetComponent<Image>();
-            _startScale = _image.rectTransform.localScale;
-            _imageChildren = GetListOfChildren<ImageAnimator>();
-        }
-
-        #endregion
     }
 }

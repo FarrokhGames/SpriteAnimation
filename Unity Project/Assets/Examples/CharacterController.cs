@@ -16,9 +16,6 @@ public class CharacterController : MonoBehaviour
 
 	void Awake()
 	{
-		// TODO: Make sure it auto plays first anim
-		// TODO: Draw an idle animation
-
 		_animator = GetComponent<IAnimator>();
 		_animator.OnTrigger += HandleTrigger;
 
