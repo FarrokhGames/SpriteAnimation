@@ -154,6 +154,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01abf617a76f740e7a816d4451e842ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _sprites:
+  - {fileID: 0}
+  - {fileID: 21300070, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
+  - {fileID: 21300072, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
+  - {fileID: 21300074, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
   _sharedAnimators: []
   _clips:
   - _name: Idle
@@ -181,11 +186,6 @@ MonoBehaviour:
     - _index: 3
       _speed: 1
       _triggerName: 
-  _sprites:
-  - {fileID: 0}
-  - {fileID: 21300070, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
-  - {fileID: 21300072, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
-  - {fileID: 21300074, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
   _allowFlipping: 0
 --- !u!212 &518279433
 SpriteRenderer:
@@ -340,6 +340,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01abf617a76f740e7a816d4451e842ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _sprites:
+  - {fileID: 21300006, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
+  - {fileID: 21300008, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
+  - {fileID: 21300010, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
+  - {fileID: 21300012, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
+  - {fileID: 21300014, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
+  - {fileID: 21300016, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
+  - {fileID: 21300018, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
+  - {fileID: 21300020, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
+  - {fileID: 21300022, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
+  - {fileID: 21300024, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
+  - {fileID: 21300026, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
+  - {fileID: 21300028, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
+  - {fileID: 21300030, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
+  - {fileID: 21300032, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
+  - {fileID: 21300034, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
+  - {fileID: 21300036, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
   _sharedAnimators:
   - {fileID: 1771483275}
   _clips:
@@ -401,23 +418,6 @@ MonoBehaviour:
     - _index: 15
       _speed: 1
       _triggerName: 
-  _sprites:
-  - {fileID: 21300006, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
-  - {fileID: 21300008, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
-  - {fileID: 21300010, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
-  - {fileID: 21300012, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
-  - {fileID: 21300014, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
-  - {fileID: 21300016, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
-  - {fileID: 21300018, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
-  - {fileID: 21300020, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
-  - {fileID: 21300022, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
-  - {fileID: 21300024, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
-  - {fileID: 21300026, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
-  - {fileID: 21300028, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
-  - {fileID: 21300030, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
-  - {fileID: 21300032, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
-  - {fileID: 21300034, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
-  - {fileID: 21300036, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
   _allowFlipping: 1
 --- !u!212 &587472066
 SpriteRenderer:
@@ -632,6 +632,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01abf617a76f740e7a816d4451e842ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _sprites:
+  - {fileID: 21300000, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
+  - {fileID: 21300002, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
+  - {fileID: 21300004, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
   _sharedAnimators: []
   _clips:
   - _name: Idle
@@ -656,10 +660,6 @@ MonoBehaviour:
     - _index: 2
       _speed: 1
       _triggerName: 
-  _sprites:
-  - {fileID: 21300000, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
-  - {fileID: 21300002, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
-  - {fileID: 21300004, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
   _allowFlipping: 1
 --- !u!212 &1024155828
 SpriteRenderer:
@@ -695,7 +695,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingOrder: -2
   m_Sprite: {fileID: 21300000, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -735,8 +735,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01abf617a76f740e7a816d4451e842ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sharedAnimators: []
-  _clips: []
   _sprites:
   - {fileID: 21300038, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
   - {fileID: 21300040, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
@@ -754,6 +752,8 @@ MonoBehaviour:
   - {fileID: 21300064, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
   - {fileID: 21300066, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
   - {fileID: 21300068, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
+  _sharedAnimators: []
+  _clips: []
   _allowFlipping: 1
 --- !u!212 &1771483276
 SpriteRenderer:
@@ -789,7 +789,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -2
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300038, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
