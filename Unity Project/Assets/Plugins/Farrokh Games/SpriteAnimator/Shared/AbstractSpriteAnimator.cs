@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using FarrokhGames.SpriteAnimation.Frame;
 using UnityEngine;
@@ -10,10 +11,11 @@ namespace FarrokhGames.SpriteAnimation.Shared
         [SerializeField] protected UnityEngine.Sprite[] _sprites;
         [SerializeField] AbstractSpriteAnimator[] _sharedAnimators;
         [SerializeField] Clip[] _clips;
-        [SerializeField] bool _animateChildren = true;
+        [SerializeField] protected bool _animateChildren = true;
 
         IFrameAnimator _animator = new FrameAnimator();
         AbstractSpriteAnimator[] _children;
+        Dictionary<string, Clip> _nameToClip = null;
 
         /// <inheritdoc />
         public Action OnClipComplete { get; set; }
@@ -30,9 +32,27 @@ namespace FarrokhGames.SpriteAnimation.Shared
         /// <inheritdoc />
         public bool Play(string clipName)
         {
-            var clip = _clips.FirstOrDefault(x => x.Name == clipName);
-            Play(clip);
-            return clip != null;
+            CacheClipNames();
+            if (_nameToClip.ContainsKey(clipName))
+            {
+                var clip = _nameToClip[clipName];
+                Play(clip);
+                return true;
+            }
+            return false;
+        }
+
+        void CacheClipNames()
+        {
+            if (_nameToClip == null)
+            {
+                _nameToClip = new Dictionary<string, Clip>();
+                for (var i = 0; i < _clips.Length; i++)
+                {
+                    var clip = _clips[i];
+                    _nameToClip.Add(clip.Name, clip);
+                }
+            }
         }
 
         /// <inheritdoc />
@@ -41,8 +61,26 @@ namespace FarrokhGames.SpriteAnimation.Shared
             if (clip != null)
             {
                 _animator.Play(clip);
-                if (_animateChildren) { PerformOnChildren(animator => animator.Play(clip.Name)); }
-                PerformOnShared(animator => animator.Play(clip));
+
+                // Play Children
+                if (_animateChildren && _children != null && _children.Length > 0)
+                {
+                    for (var i = 0; i < _children.Length; i++)
+                    {
+                        var animator = _children[i];
+                        if (animator != null) { animator.Play(clip.Name); }
+                    }
+                }
+
+                // Play Shared
+                if (_sharedAnimators != null && _sharedAnimators.Length > 0)
+                {
+                    for (var i = 0; i < _sharedAnimators.Length; i++)
+                    {
+                        var animator = _sharedAnimators[i];
+                        if (animator != null) { animator.Play(clip); }
+                    }
+                }
             }
         }
 
@@ -50,43 +88,60 @@ namespace FarrokhGames.SpriteAnimation.Shared
         public void Pause()
         {
             _animator.Pause();
-            if (_animateChildren) { PerformOnChildren(animator => animator.Pause()); }
-            PerformOnShared(animator => animator.Pause());
+
+            // Pause Children
+            if (_animateChildren && _children != null && _children.Length > 0)
+            {
+                for (var i = 0; i < _children.Length; i++)
+                {
+                    var animator = _children[i];
+                    if (animator != null) { animator.Pause(); }
+                }
+            }
+
+            // Pause Shared
+            if (_sharedAnimators != null && _sharedAnimators.Length > 0)
+            {
+                for (var i = 0; i < _sharedAnimators.Length; i++)
+                {
+                    var animator = _sharedAnimators[i];
+                    if (animator != null) { animator.Pause(); }
+                }
+            }
         }
 
         /// <inheritdoc />
         public void Resume()
         {
             _animator.Resume();
-            if (_animateChildren) { PerformOnChildren(animator => animator.Resume()); }
-            PerformOnShared(animator => animator.Resume());
-        }
 
-        void PerformOnChildren(Action<AbstractSpriteAnimator> method)
-        {
-            PerformOnList<AbstractSpriteAnimator>(_children, method);
-        }
-
-        void PerformOnShared(Action<AbstractSpriteAnimator> method)
-        {
-            PerformOnList<AbstractSpriteAnimator>(_sharedAnimators, method);
-        }
-
-        protected void PerformOnChildren<T>(Action<T> method)where T : AbstractSpriteAnimator
-        {
-            PerformOnList<T>(_children, method);
-        }
-
-        void PerformOnList<T>(AbstractSpriteAnimator[] list, Action<T> method)where T : AbstractSpriteAnimator
-        {
-            if (list != null && list.Length > 0)
+            // Resume Children
+            if (_animateChildren && _children != null && _children.Length > 0)
             {
-                for (var i = 0; i < list.Length; i++)
+                for (var i = 0; i < _children.Length; i++)
                 {
-                    var animator = list[i];
-                    if (animator != null) { method(list[i] as T); }
+                    var animator = _children[i];
+                    if (animator != null) { animator.Resume(); }
                 }
             }
+
+            // Resume Shared
+            if (_sharedAnimators != null && _sharedAnimators.Length > 0)
+            {
+                for (var i = 0; i < _sharedAnimators.Length; i++)
+                {
+                    var animator = _sharedAnimators[i];
+                    if (animator != null) { animator.Resume(); }
+                }
+            }
+        }
+
+        protected T[] GetListOfChildren<T>()
+        {
+            var list = new List<T>();
+            if (_children != null) { list.AddRange(_children.Cast<T>()); }
+            if (_sharedAnimators != null) { list.AddRange(_sharedAnimators.Cast<T>()); }
+            return list.Distinct().ToArray();
         }
 
         /// <inheritdoc />

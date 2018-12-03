@@ -7,7 +7,10 @@ namespace FarrokhGames.SpriteAnimation.Sprite
     [RequireComponent(typeof(Image))]
     public class ImageAnimator : AbstractSpriteAnimator, IImageAnimator
     {
+        [SerializeField] bool _allowChangingColor = true;
+
         Image _image;
+        ImageAnimator[] _children;
 
         /// <inheritdoc />
         public bool Visible
@@ -15,8 +18,17 @@ namespace FarrokhGames.SpriteAnimation.Sprite
             get { return _image.enabled; }
             set
             {
+                // Set visibility of children
+                if (_animateChildren && _children != null && _children.Length > 0)
+                {
+                    for (var i = 0; i < _children.Length; i++)
+                    {
+                        var child = _children[i];
+                        if (child != null) { child.Visible = value; }
+                    }
+                }
+
                 _image.enabled = value;
-                PerformOnChildren<SpriteAnimator>((child) => { child.enabled = value; });
             }
         }
 
@@ -26,8 +38,17 @@ namespace FarrokhGames.SpriteAnimation.Sprite
             get { return _image.color; }
             set
             {
-                _image.color = value;
-                PerformOnChildren<SpriteAnimator>((child) => { child.Color = value; });
+                // Change color of children
+                if (_animateChildren && _children != null && _children.Length > 0)
+                {
+                    for (var i = 0; i < _children.Length; i++)
+                    {
+                        var child = _children[i];
+                        if (child != null) { child.Color = value; }
+                    }
+                }
+
+                if (_allowChangingColor) { _image.color = value; }
             }
         }
 
@@ -48,6 +69,7 @@ namespace FarrokhGames.SpriteAnimation.Sprite
         void Awake()
         {
             _image = GetComponent<Image>();
+            _children = GetListOfChildren<ImageAnimator>();
         }
 
         #endregion
