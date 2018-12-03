@@ -1,3 +1,4 @@
+using System.Linq;
 using FarrokhGames.SpriteAnimation.Shared;
 using UnityEngine;
 
@@ -7,18 +8,24 @@ namespace FarrokhGames.SpriteAnimation.Sprite
     [RequireComponent(typeof(SpriteRenderer))]
     public class SpriteAnimator : AbstractSpriteAnimator, ISpriteAnimator
     {
-        [SerializeField, Tooltip("If false, any attempts to flip this sprite is suppressed")] bool _allowFlipping = true;
+        [SerializeField, Tooltip("If false, any attempts to flip this image is suppressed")] bool _allowFlipping = true;
 
         SpriteRenderer _spriteRenderer;
-        SpriteAnimator[] _spriteChildren = null;
-        int _sortingOffset;
+        ISpriteAnimator[] _children;
+        int _originalSortingOrder;
 
         /// <inheritdoc />
         protected override void Init()
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();
-            _sortingOffset = _spriteRenderer.sortingOrder;
-            _spriteChildren = GetListOfChildren<SpriteAnimator>();
+            _originalSortingOrder = _spriteRenderer.sortingOrder;
+            _children = GetComponentsInChildren<ISpriteAnimator>().Where(x => !x.Equals(this)).ToArray();
+        }
+
+        /// <inheritdoc />
+        protected override void HandleFrameChanged(int index)
+        {
+            _spriteRenderer.sprite = _sprites[index];
         }
 
         /// <inheritdoc />
@@ -28,11 +35,11 @@ namespace FarrokhGames.SpriteAnimation.Sprite
             set
             {
                 // Set visibility of children
-                if (_animateChildren && _spriteChildren != null && _spriteChildren.Length > 0)
+                if (_animateChildren && _children != null && _children.Length > 0)
                 {
-                    for (var i = 0; i < _spriteChildren.Length; i++)
+                    for (var i = 0; i < _children.Length; i++)
                     {
-                        var child = _spriteChildren[i];
+                        var child = _children[i];
                         if (child != null) { child.Visible = value; }
                     }
                 }
@@ -47,17 +54,17 @@ namespace FarrokhGames.SpriteAnimation.Sprite
             get { return _spriteRenderer.sortingOrder; }
             set
             {
-                _spriteRenderer.sortingOrder = value + _sortingOffset;
-
-                // Change offset of children
-                if (_animateChildren && _spriteChildren != null && _spriteChildren.Length > 0)
+                // Set sorting order of children
+                if (_animateChildren && _children != null && _children.Length > 0)
                 {
-                    for (var i = 0; i < _spriteChildren.Length; i++)
+                    for (var i = 0; i < _children.Length; i++)
                     {
-                        var child = _spriteChildren[i];
+                        var child = _children[i];
                         if (child != null) { child.SortingOrder = value; }
                     }
                 }
+
+                _spriteRenderer.sortingOrder = value + _originalSortingOrder;
             }
         }
 
@@ -68,23 +75,17 @@ namespace FarrokhGames.SpriteAnimation.Sprite
             set
             {
                 // Flip children
-                if (_animateChildren && _spriteChildren != null && _spriteChildren.Length > 0)
+                if (_animateChildren && _children != null && _children.Length > 0)
                 {
-                    for (var i = 0; i < _spriteChildren.Length; i++)
+                    for (var i = 0; i < _children.Length; i++)
                     {
-                        var child = _spriteChildren[i];
+                        var child = _children[i];
                         if (child != null) { child.Flip = value; }
                     }
                 }
 
                 if (_allowFlipping) { _spriteRenderer.flipX = value; }
             }
-        }
-
-        /// <inheritdoc />
-        protected override void HandleFrameChanged(int index)
-        {
-            _spriteRenderer.sprite = _sprites[index];
         }
     }
 }

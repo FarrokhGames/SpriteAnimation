@@ -32,6 +32,12 @@ namespace FarrokhGames.SpriteAnimation
         void Play(IClip clip);
 
         /// <summary>
+        /// Tries to find and play a clip of given name
+        /// </summary>
+        /// <param name="clipName">The name of the clip to play</param>
+        bool Play(string name);
+
+        /// <summary>
         /// Pauses the current animation
         /// </summary>
         void Pause();
@@ -52,11 +58,21 @@ namespace FarrokhGames.SpriteAnimation
         IClip CurrentClip { get; }
 
         /// <summary>
+        /// Returns true if this animator can play clips of parent animator
+        /// </summary>
+        bool AllowClipSharing { get; }
+
+        /// <summary>
         /// Ticks the animator using given delta time
         /// This must be done in order to run the animations
         /// </summary>
         /// <param name="deltaTime">The time delta</param>
         void Tick(float deltaTime);
+
+        /// <summary>
+        /// Sets the children of this animator
+        /// </summary>
+        void SetChildren(IFrameAnimator[] children);
     }
 
     /// <summary>

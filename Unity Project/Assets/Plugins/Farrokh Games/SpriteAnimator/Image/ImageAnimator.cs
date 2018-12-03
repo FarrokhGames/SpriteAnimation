@@ -1,3 +1,4 @@
+using System.Linq;
 using FarrokhGames.SpriteAnimation.Shared;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,7 +13,7 @@ namespace FarrokhGames.SpriteAnimation.Sprite
         [SerializeField, Tooltip("If false, any attempts to flip this image is suppressed")] bool _allowFlipping = true;
 
         Image _image;
-        ImageAnimator[] _imageChildren;
+        IImageAnimator[] _children;
         Vector3 _startScale;
 
         /// <inheritdoc />
@@ -20,7 +21,14 @@ namespace FarrokhGames.SpriteAnimation.Sprite
         {
             _image = GetComponent<Image>();
             _startScale = _image.rectTransform.localScale;
-            _imageChildren = GetListOfChildren<ImageAnimator>();
+            _children = GetComponentsInChildren<IImageAnimator>().Where(x => !x.Equals(this)).ToArray();
+        }
+
+        /// <inheritdoc />
+        protected override void HandleFrameChanged(int index)
+        {
+            _image.sprite = _sprites[index];
+            if (_forceNativeSize) { _image.SetNativeSize(); }
         }
 
         /// <inheritdoc />
@@ -30,11 +38,11 @@ namespace FarrokhGames.SpriteAnimation.Sprite
             set
             {
                 // Set visibility of children
-                if (_animateChildren && _imageChildren != null && _imageChildren.Length > 0)
+                if (_animateChildren && _children != null && _children.Length > 0)
                 {
-                    for (var i = 0; i < _imageChildren.Length; i++)
+                    for (var i = 0; i < _children.Length; i++)
                     {
-                        var child = _imageChildren[i];
+                        var child = _children[i];
                         if (child != null) { child.Visible = value; }
                     }
                 }
@@ -50,24 +58,17 @@ namespace FarrokhGames.SpriteAnimation.Sprite
             set
             {
                 // Flip children
-                if (_animateChildren && _imageChildren != null && _imageChildren.Length > 0)
+                if (_animateChildren && _children != null && _children.Length > 0)
                 {
-                    for (var i = 0; i < _imageChildren.Length; i++)
+                    for (var i = 0; i < _children.Length; i++)
                     {
-                        var child = _imageChildren[i];
+                        var child = _children[i];
                         if (child != null) { child.Flip = value; }
                     }
                 }
 
                 if (_allowFlipping) { _image.rectTransform.localScale = new Vector3(value ? -_startScale.x : _startScale.x, _startScale.y, _startScale.z); }
             }
-        }
-
-        /// <inheritdoc />
-        protected override void HandleFrameChanged(int index)
-        {
-            _image.sprite = _sprites[index];
-            if (_forceNativeSize) { _image.SetNativeSize(); }
         }
     }
 }

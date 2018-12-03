@@ -129,7 +129,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &518279431
 Transform:
   m_ObjectHideFlags: 0
@@ -159,7 +159,6 @@ MonoBehaviour:
   - {fileID: 21300070, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
   - {fileID: 21300072, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
   - {fileID: 21300074, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
-  _sharedAnimators: []
   _clips:
   - _name: Idle
     _loop: 0
@@ -187,8 +186,8 @@ MonoBehaviour:
       _speed: 1
       _triggerName: 
   _animateChildren: 0
+  _allowClipSharing: 0
   _allowFlipping: 0
-  _allowChangingColor: 1
 --- !u!212 &518279433
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -359,8 +358,6 @@ MonoBehaviour:
   - {fileID: 21300032, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
   - {fileID: 21300034, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
   - {fileID: 21300036, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
-  _sharedAnimators:
-  - {fileID: 1771483275}
   _clips:
   - _name: Idle
     _loop: 1
@@ -371,7 +368,7 @@ MonoBehaviour:
       _speed: 1
       _triggerName: 
     - _index: 1
-      _speed: 0
+      _speed: 1
       _triggerName: 
     - _index: 2
       _speed: 1
@@ -421,8 +418,8 @@ MonoBehaviour:
       _speed: 1
       _triggerName: 
   _animateChildren: 1
+  _allowClipSharing: 1
   _allowFlipping: 1
-  _allowChangingColor: 1
 --- !u!212 &587472066
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -611,7 +608,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1024155826
 Transform:
   m_ObjectHideFlags: 0
@@ -640,7 +637,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
   - {fileID: 21300002, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
   - {fileID: 21300004, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
-  _sharedAnimators: []
   _clips:
   - _name: Idle
     _loop: 1
@@ -665,8 +661,8 @@ MonoBehaviour:
       _speed: 1
       _triggerName: 
   _animateChildren: 0
+  _allowClipSharing: 0
   _allowFlipping: 1
-  _allowChangingColor: 1
 --- !u!212 &1024155828
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -729,7 +725,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1771483275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -758,11 +754,10 @@ MonoBehaviour:
   - {fileID: 21300064, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
   - {fileID: 21300066, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
   - {fileID: 21300068, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
-  _sharedAnimators: []
   _clips: []
   _animateChildren: 0
+  _allowClipSharing: 1
   _allowFlipping: 1
-  _allowChangingColor: 1
 --- !u!212 &1771483276
 SpriteRenderer:
   m_ObjectHideFlags: 0

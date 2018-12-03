@@ -94,7 +94,8 @@ namespace FarrokhGames.SpriteAnimation
         [Test]
         public void Play_NullClip_NothingHappens()
         {
-            _animator.Play(null);
+            IClip clip = null;
+            _animator.Play(clip);
             Assert.That(_animator.IsPlaying, Is.False);
             Assert.That(_animator.CurrentClip, Is.Null);
         }
@@ -248,7 +249,7 @@ namespace FarrokhGames.SpriteAnimation
         /////////////////// 
         ///  OnTrigger  ///
         ///////////////////
-        /// 
+
         [Test]
         public void OnTrigger_CalledOnceForNonLooping()
         {

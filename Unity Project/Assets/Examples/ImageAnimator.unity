@@ -164,7 +164,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
   - {fileID: 21300002, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
   - {fileID: 21300004, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
-  _sharedAnimators: []
   _clips:
   - _name: Idle
     _loop: 0
@@ -189,6 +188,7 @@ MonoBehaviour:
       _speed: 1
       _triggerName: 
   _animateChildren: 0
+  _allowClipSharing: 0
   _forceNativeSize: 1
   _allowFlipping: 1
 --- !u!114 &301391860
@@ -460,9 +460,9 @@ MonoBehaviour:
   - {fileID: 21300032, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
   - {fileID: 21300034, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
   - {fileID: 21300036, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
-  _sharedAnimators: []
   _clips: []
   _animateChildren: 0
+  _allowClipSharing: 1
   _forceNativeSize: 1
   _allowFlipping: 1
 --- !u!114 &729235797
@@ -563,9 +563,9 @@ MonoBehaviour:
   - {fileID: 21300064, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
   - {fileID: 21300066, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
   - {fileID: 21300068, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
-  _sharedAnimators: []
   _clips: []
   _animateChildren: 0
+  _allowClipSharing: 1
   _forceNativeSize: 1
   _allowFlipping: 1
 --- !u!114 &814860044
@@ -734,9 +734,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  _sharedAnimators:
-  - {fileID: 729235795}
-  - {fileID: 814860042}
   _clips:
   - _name: Idle
     _loop: 1
@@ -797,6 +794,7 @@ MonoBehaviour:
       _speed: 1
       _triggerName: 
   _animateChildren: 1
+  _allowClipSharing: 0
   _forceNativeSize: 1
   _allowFlipping: 0
 --- !u!114 &1297135164
@@ -995,7 +993,6 @@ MonoBehaviour:
   - {fileID: 21300070, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
   - {fileID: 21300072, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
   - {fileID: 21300074, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
-  _sharedAnimators: []
   _clips:
   - _name: Idle
     _loop: 0
@@ -1020,6 +1017,7 @@ MonoBehaviour:
       _speed: 1
       _triggerName: 
   _animateChildren: 0
+  _allowClipSharing: 0
   _forceNativeSize: 1
   _allowFlipping: 0
 --- !u!114 &1374789994
