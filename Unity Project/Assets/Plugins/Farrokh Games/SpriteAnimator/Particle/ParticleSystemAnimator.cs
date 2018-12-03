@@ -83,8 +83,7 @@ namespace FarrokhGames.SpriteAnimation.Particle
             else
             {
                 _isPaused = false;
-                _particleSystem.Stop(_withChildren);
-                if (_stopMode == StopMode.Clear) { _particleSystem.Clear(); }
+                _particleSystem.Stop(_withChildren, _stopMode == StopMode.Clear ? ParticleSystemStopBehavior.StopEmittingAndClear : ParticleSystemStopBehavior.StopEmitting);
                 return false;
             }
         }
