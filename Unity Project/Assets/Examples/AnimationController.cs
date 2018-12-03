@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// Example class for playing animations, flipping artwork, and playing sounds on triggers
 /// </summary>
-public class CharacterController : MonoBehaviour
+public class AnimationController : MonoBehaviour
 {
 	[SerializeField] AudioClip[] _footsteps;
 
