@@ -33,7 +33,7 @@ namespace FarrokhGames.SpriteAnimation.Frame
             {
                 _currentClip = clip;
                 _currentTime = 0f;
-                _currentFrame = _currentClip.RandomStart ? UnityEngine.Random.Range(0, _currentClip.Length) : 0;
+                _currentFrame = _currentClip.RandomStart ? UnityEngine.Random.Range(0, _currentClip.FrameCount) : 0;
                 HandleFrame(_currentFrame);
                 _isPlaying = true;
             }
@@ -63,7 +63,7 @@ namespace FarrokhGames.SpriteAnimation.Frame
                 {
                     _currentTime -= 1f;
                     _currentFrame++;
-                    if (_currentFrame >= _currentClip.Length)
+                    if (_currentFrame >= _currentClip.FrameCount)
                     {
                         if (!_currentClip.Loop)
                         {
@@ -85,7 +85,7 @@ namespace FarrokhGames.SpriteAnimation.Frame
         {
             var currentFrame = _currentClip[frame];
             if (OnFrameChanged != null) { OnFrameChanged(currentFrame.Index); }
-            if (!string.IsNullOrEmpty(currentFrame.TriggerName))
+            if (currentFrame.HasTrigger)
             {
                 if (OnTrigger != null) { OnTrigger(currentFrame.TriggerName); }
             }
@@ -105,11 +105,11 @@ namespace FarrokhGames.SpriteAnimation.Frame
     [Serializable]
     public class Clip : IClip
     {
-        [SerializeField] string _name;
-        [SerializeField] bool _loop;
-        [SerializeField] bool _randomStart;
-        [SerializeField] float _frameRate = 8f;
-        [SerializeField] Frame[] _frames;
+        [SerializeField, Tooltip("The name of the clip")] string _name;
+        [SerializeField, Tooltip("Wether this clip loops or not")] bool _loop = true;
+        [SerializeField, Tooltip("Wether this clip starts on a random frame")] bool _randomStart = false;
+        [SerializeField, Tooltip("The frame rate of this clip in frames per second")] float _frameRate = 8f;
+        [SerializeField, Tooltip("The frames of this clip")] Frame[] _frames;
 
         /// <inheritdoc />
         public string Name { get { return _name; } }
@@ -124,7 +124,7 @@ namespace FarrokhGames.SpriteAnimation.Frame
         public float FrameRate { get { return _frameRate; } }
 
         /// <inheritdoc />
-        public int Length { get { return _frames.Length; } }
+        public int FrameCount { get { return _frames.Length; } }
 
         /// <inheritdoc />
         public IFrame this [int index] { get { return _frames[index]; } }
@@ -134,15 +134,18 @@ namespace FarrokhGames.SpriteAnimation.Frame
     [Serializable]
     public class Frame : IFrame
     {
-        [SerializeField] int _index;
-        [SerializeField] float _speed = 1f;
-        [SerializeField] string _triggerName;
+        [SerializeField, Tooltip("The index of this clip")] int _index = 0;
+        [SerializeField, Tooltip("The speed of this clip. Use this to slow down or speed up individual frames")] float _speed = 1f;
+        [SerializeField, Tooltip("The name of the trigger. Leave empty if you don't want a trigger")] string _triggerName;
 
         /// <inheritdoc />
         public int Index { get { return _index; } }
 
         /// <inheritdoc />
         public float Speed { get { return _speed; } }
+
+        /// <inheritdoc />
+        public bool HasTrigger { get { return !string.IsNullOrEmpty(_triggerName); } }
 
         /// <inheritdoc />
         public string TriggerName { get { return _triggerName; } }

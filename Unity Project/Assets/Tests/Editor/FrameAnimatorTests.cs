@@ -24,7 +24,7 @@ namespace FarrokhGames.SpriteAnimation
             _clip = Substitute.For<IClip>();
             _clip.FrameRate.Returns(1f);
             _clip.Name.Returns("clip");
-            _clip.Length.Returns(3);
+            _clip.FrameCount.Returns(3);
             var frame0 = CreateFrame(1, 1f);
             _clip[0].Returns(frame0);
             var frame1 = CreateFrame(2, 0.5f, "trigger");

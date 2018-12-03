@@ -7,9 +7,8 @@ namespace FarrokhGames.SpriteAnimation.Sprite
     [RequireComponent(typeof(Image))]
     public class ImageAnimator : AbstractSpriteAnimator, IImageAnimator
     {
-        [SerializeField] bool _forceNativeSize = true;
-        [SerializeField] bool _allowFlipping = true;
-        [SerializeField] bool _allowChangingColor = true;
+        [SerializeField, Tooltip("If true, the image will update to its native size whenever it changes")] bool _forceNativeSize = true;
+        [SerializeField, Tooltip("If false, any attempts to flip this image is suppressed")] bool _allowFlipping = true;
 
         Image _image;
         ImageAnimator[] _imageChildren;
@@ -64,32 +63,6 @@ namespace FarrokhGames.SpriteAnimation.Sprite
         }
 
         /// <inheritdoc />
-        public Color Color
-        {
-            get { return _image.color; }
-            set
-            {
-                // Change color of children
-                if (_animateChildren && _imageChildren != null && _imageChildren.Length > 0)
-                {
-                    for (var i = 0; i < _imageChildren.Length; i++)
-                    {
-                        var child = _imageChildren[i];
-                        if (child != null) { child.Color = value; }
-                    }
-                }
-
-                if (_allowChangingColor) { _image.color = value; }
-            }
-        }
-
-        /// <inheritdoc />
-        public float Alpha
-        {
-            get { return _image.color.a; }
-            set { Color = new Color(Color.r, Color.g, Color.b, value); }
-        }
-
         protected override void HandleFrameChanged(int index)
         {
             _image.sprite = _sprites[index];

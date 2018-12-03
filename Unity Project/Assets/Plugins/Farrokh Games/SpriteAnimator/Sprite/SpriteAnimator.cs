@@ -8,8 +8,7 @@ namespace FarrokhGames.SpriteAnimation.Sprite
     [RequireComponent(typeof(SpriteRenderer))]
     public class SpriteAnimator : AbstractSpriteAnimator, ISpriteAnimator
     {
-        [SerializeField] bool _allowFlipping = true;
-        [SerializeField] bool _allowChangingColor = true;
+        [SerializeField, Tooltip("If false, any attempts to flip this sprite is suppressed")] bool _allowFlipping = true;
 
         SpriteRenderer _spriteRenderer;
         SpriteAnimator[] _spriteChildren = null;
@@ -84,32 +83,6 @@ namespace FarrokhGames.SpriteAnimation.Sprite
         }
 
         /// <inheritdoc />
-        public Color Color
-        {
-            get { return _spriteRenderer.color; }
-            set
-            {
-                // Change color of children
-                if (_animateChildren && _spriteChildren != null && _spriteChildren.Length > 0)
-                {
-                    for (var i = 0; i < _spriteChildren.Length; i++)
-                    {
-                        var child = _spriteChildren[i];
-                        if (child != null) { child.Color = value; }
-                    }
-                }
-
-                if (_allowChangingColor) { _spriteRenderer.color = value; }
-            }
-        }
-
-        /// <inheritdoc />
-        public float Alpha
-        {
-            get { return Color.a; }
-            set { Color = new Color(Color.r, Color.g, Color.b, value); }
-        }
-
         protected override void HandleFrameChanged(int index)
         {
             _spriteRenderer.sprite = _sprites[index];

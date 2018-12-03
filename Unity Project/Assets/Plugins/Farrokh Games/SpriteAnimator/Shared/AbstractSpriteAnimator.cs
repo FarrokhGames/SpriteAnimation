@@ -8,10 +8,10 @@ namespace FarrokhGames.SpriteAnimation.Shared
 {
     public abstract class AbstractSpriteAnimator : MonoBehaviour, IAnimator
     {
-        [SerializeField] protected UnityEngine.Sprite[] _sprites;
-        [SerializeField] AbstractSpriteAnimator[] _sharedAnimators;
-        [SerializeField] Clip[] _clips;
-        [SerializeField] protected bool _animateChildren = true;
+        [SerializeField, Tooltip("A list of sprites to use with this animator. A frames index directly corresponds to an index in this list.")] protected UnityEngine.Sprite[] _sprites;
+        [SerializeField, Tooltip("Shared animators will play the same clip as this parent animator. This is useful as it allows you to share clips between animators")] AbstractSpriteAnimator[] _sharedAnimators;
+        [SerializeField, Tooltip("The clips that can be used by this animator")] Clip[] _clips;
+        [SerializeField, Tooltip("If true, any children under this animator will be played, paused and resumed together with this parent")] protected bool _animateChildren = true;
 
         IFrameAnimator _animator = new FrameAnimator();
         AbstractSpriteAnimator[] _children;
@@ -42,6 +42,9 @@ namespace FarrokhGames.SpriteAnimation.Shared
             return false;
         }
 
+        /* 
+        Caches the clips of this animator for quick access using clip-names
+        */
         void CacheClipNames()
         {
             if (_nameToClip == null)
@@ -136,7 +139,11 @@ namespace FarrokhGames.SpriteAnimation.Shared
             }
         }
 
-        protected T[] GetListOfChildren<T>()
+        /// <summary>
+        /// Returns a casted list of children
+        /// </summary>
+        /// <typeparam name="T">A implementation type of AbstractSpriteAnimator</typeparam>
+        protected T[] GetListOfChildren<T>()where T : AbstractSpriteAnimator
         {
             var list = new List<T>();
             if (_children != null) { list.AddRange(_children.Cast<T>()); }
@@ -144,6 +151,9 @@ namespace FarrokhGames.SpriteAnimation.Shared
             return list.Distinct().ToArray();
         }
 
+        /// <summary>
+        /// Invoked when this animator is created
+        /// </summary>
         protected abstract void Init();
 
         /// <inheritdoc />
@@ -160,6 +170,9 @@ namespace FarrokhGames.SpriteAnimation.Shared
 
         void Awake()
         {
+            var children = GetComponentsInChildren<AbstractSpriteAnimator>();
+            _children = children.Where(x => x != this).ToArray();
+
             Init();
 
             // Autoplay first clip
@@ -174,9 +187,6 @@ namespace FarrokhGames.SpriteAnimation.Shared
             _animator.OnClipComplete += HandleClipComplete;
             _animator.OnFrameChanged += HandleFrameChanged;
             _animator.OnTrigger += HandleTrigger;
-
-            var children = GetComponentsInChildren<AbstractSpriteAnimator>();
-            _children = children.Where(x => x != this).ToArray();
         }
 
         void OnDisable()

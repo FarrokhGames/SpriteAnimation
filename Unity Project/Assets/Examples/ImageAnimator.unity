@@ -191,7 +191,6 @@ MonoBehaviour:
   _animateChildren: 0
   _forceNativeSize: 1
   _allowFlipping: 1
-  _allowChangingColor: 1
 --- !u!114 &301391860
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -466,7 +465,6 @@ MonoBehaviour:
   _animateChildren: 0
   _forceNativeSize: 1
   _allowFlipping: 1
-  _allowChangingColor: 1
 --- !u!114 &729235797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -570,7 +568,6 @@ MonoBehaviour:
   _animateChildren: 0
   _forceNativeSize: 1
   _allowFlipping: 1
-  _allowChangingColor: 1
 --- !u!114 &814860044
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -795,14 +792,13 @@ MonoBehaviour:
       _triggerName: footstep
     - _index: 14
       _speed: 1
-      _triggerName: footstep
+      _triggerName: 
     - _index: 15
       _speed: 1
       _triggerName: 
   _animateChildren: 1
   _forceNativeSize: 1
   _allowFlipping: 0
-  _allowChangingColor: 1
 --- !u!114 &1297135164
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1026,7 +1022,6 @@ MonoBehaviour:
   _animateChildren: 0
   _forceNativeSize: 1
   _allowFlipping: 0
-  _allowChangingColor: 1
 --- !u!114 &1374789994
 MonoBehaviour:
   m_ObjectHideFlags: 0
