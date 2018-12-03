@@ -1,7 +1,8 @@
-using UnityEngine;
-
 namespace FarrokhGames.SpriteAnimation
 {
+    /// <summary>
+    /// SpriteRenderer-based animator
+    /// </summary>
     public interface ISpriteAnimator : IAnimator
     {
         /// <summary>

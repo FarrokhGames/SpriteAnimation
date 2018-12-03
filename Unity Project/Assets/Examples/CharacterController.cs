@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using FarrokhGames.SpriteAnimation;
+﻿using FarrokhGames.SpriteAnimation;
 using UnityEngine;
 
+/// <summary>
+/// Example class for playing animations, flipping artwork, and playing sounds on triggers
+/// </summary>
 public class CharacterController : MonoBehaviour
 {
-	IAnimator _animator;
-	AudioSource _audioSource;
-
 	[SerializeField] AudioClip[] _footsteps;
 
+	IAnimator _animator;
+	AudioSource _audioSource;
 	ISpriteAnimator _spriteAnimator;
 	IImageAnimator _imageAnimator;
 
@@ -18,9 +17,7 @@ public class CharacterController : MonoBehaviour
 	{
 		_animator = GetComponent<IAnimator>();
 		_animator.OnTrigger += HandleTrigger;
-
 		_audioSource = GetComponent<AudioSource>();
-
 		_spriteAnimator = _animator as ISpriteAnimator;
 		_imageAnimator = _animator as IImageAnimator;
 	}

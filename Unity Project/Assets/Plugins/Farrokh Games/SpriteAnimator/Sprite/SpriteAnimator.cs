@@ -1,10 +1,9 @@
-using System;
-using System.Linq;
 using FarrokhGames.SpriteAnimation.Shared;
 using UnityEngine;
 
 namespace FarrokhGames.SpriteAnimation.Sprite
 {
+    /// <inheritdoc />
     [RequireComponent(typeof(SpriteRenderer))]
     public class SpriteAnimator : AbstractSpriteAnimator, ISpriteAnimator
     {

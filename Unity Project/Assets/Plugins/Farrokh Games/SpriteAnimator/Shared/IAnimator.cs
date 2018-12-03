@@ -2,6 +2,9 @@ using System;
 
 namespace FarrokhGames.SpriteAnimation
 {
+    /// <summary>
+    /// Shared interface for all animators
+    /// </summary>
     public interface IAnimator : IDisposable
     {
         /// <summary>

@@ -2,6 +2,9 @@ using UnityEngine;
 
 namespace FarrokhGames.SpriteAnimation
 {
+    /// <summary>
+    /// UI-Image-based animator
+    /// </summary>
     public interface IImageAnimator : IAnimator
     {
         /// <summary>

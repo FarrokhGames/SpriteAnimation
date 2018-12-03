@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 namespace FarrokhGames.SpriteAnimation.Sprite
 {
+    /// <inheritdoc />
     [RequireComponent(typeof(Image))]
     public class ImageAnimator : AbstractSpriteAnimator, IImageAnimator
     {
