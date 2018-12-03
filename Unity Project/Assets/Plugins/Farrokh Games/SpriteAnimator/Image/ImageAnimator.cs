@@ -7,10 +7,13 @@ namespace FarrokhGames.SpriteAnimation.Sprite
     [RequireComponent(typeof(Image))]
     public class ImageAnimator : AbstractSpriteAnimator, IImageAnimator
     {
+        [SerializeField] bool _forceNativeSize = true;
+        [SerializeField] bool _allowFlipping = true;
         [SerializeField] bool _allowChangingColor = true;
 
         Image _image;
-        ImageAnimator[] _children;
+        ImageAnimator[] _imageChildren;
+        Vector3 _startScale;
 
         /// <inheritdoc />
         public bool Visible
@@ -19,16 +22,36 @@ namespace FarrokhGames.SpriteAnimation.Sprite
             set
             {
                 // Set visibility of children
-                if (_animateChildren && _children != null && _children.Length > 0)
+                if (_animateChildren && _imageChildren != null && _imageChildren.Length > 0)
                 {
-                    for (var i = 0; i < _children.Length; i++)
+                    for (var i = 0; i < _imageChildren.Length; i++)
                     {
-                        var child = _children[i];
+                        var child = _imageChildren[i];
                         if (child != null) { child.Visible = value; }
                     }
                 }
 
                 _image.enabled = value;
+            }
+        }
+
+        /// <inheritdoc />
+        public bool Flip
+        {
+            get { return _image.rectTransform.localScale.x == -1; }
+            set
+            {
+                // Flip children
+                if (_animateChildren && _imageChildren != null && _imageChildren.Length > 0)
+                {
+                    for (var i = 0; i < _imageChildren.Length; i++)
+                    {
+                        var child = _imageChildren[i];
+                        if (child != null) { child.Flip = value; }
+                    }
+                }
+
+                if (_allowFlipping) { _image.rectTransform.localScale = new Vector3(value ? -_startScale.x : _startScale.x, _startScale.y, _startScale.z); }
             }
         }
 
@@ -39,11 +62,11 @@ namespace FarrokhGames.SpriteAnimation.Sprite
             set
             {
                 // Change color of children
-                if (_animateChildren && _children != null && _children.Length > 0)
+                if (_animateChildren && _imageChildren != null && _imageChildren.Length > 0)
                 {
-                    for (var i = 0; i < _children.Length; i++)
+                    for (var i = 0; i < _imageChildren.Length; i++)
                     {
-                        var child = _children[i];
+                        var child = _imageChildren[i];
                         if (child != null) { child.Color = value; }
                     }
                 }
@@ -62,6 +85,7 @@ namespace FarrokhGames.SpriteAnimation.Sprite
         protected override void HandleFrameChanged(int index)
         {
             _image.sprite = _sprites[index];
+            if (_forceNativeSize) { _image.SetNativeSize(); }
         }
 
         #region MonoBehavior (Unity)
@@ -69,7 +93,8 @@ namespace FarrokhGames.SpriteAnimation.Sprite
         void Awake()
         {
             _image = GetComponent<Image>();
-            _children = GetListOfChildren<ImageAnimator>();
+            _startScale = _image.rectTransform.localScale;
+            _imageChildren = GetListOfChildren<ImageAnimator>();
         }
 
         #endregion

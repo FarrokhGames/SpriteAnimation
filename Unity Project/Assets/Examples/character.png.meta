@@ -40,7 +40,7 @@ TextureImporter:
     21300070: character_35
     21300072: character_36
     21300074: character_37
-    21300076: character_38
+    21300076: character_empty
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -878,6 +878,26 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 1ca87d946a9a24e0fa9fc43fa560c13b
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: character_empty
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8174d0b794793234c8bf0ed467d9d899
       vertices: []
       indices: 
       edges: []

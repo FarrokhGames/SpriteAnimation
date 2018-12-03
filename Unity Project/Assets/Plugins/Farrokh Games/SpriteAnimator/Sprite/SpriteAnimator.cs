@@ -12,7 +12,7 @@ namespace FarrokhGames.SpriteAnimation.Sprite
         [SerializeField] bool _allowChangingColor = true;
 
         SpriteRenderer _spriteRenderer;
-        SpriteAnimator[] _children = null;
+        SpriteAnimator[] _spriteChildren = null;
         int _sortingOffset;
 
         /// <inheritdoc />
@@ -22,11 +22,11 @@ namespace FarrokhGames.SpriteAnimation.Sprite
             set
             {
                 // Set visibility of children
-                if (_animateChildren && _children != null && _children.Length > 0)
+                if (_animateChildren && _spriteChildren != null && _spriteChildren.Length > 0)
                 {
-                    for (var i = 0; i < _children.Length; i++)
+                    for (var i = 0; i < _spriteChildren.Length; i++)
                     {
-                        var child = _children[i];
+                        var child = _spriteChildren[i];
                         if (child != null) { child.Visible = value; }
                     }
                 }
@@ -44,11 +44,11 @@ namespace FarrokhGames.SpriteAnimation.Sprite
                 _spriteRenderer.sortingOrder = value + _sortingOffset;
 
                 // Change offset of children
-                if (_animateChildren && _children != null && _children.Length > 0)
+                if (_animateChildren && _spriteChildren != null && _spriteChildren.Length > 0)
                 {
-                    for (var i = 0; i < _children.Length; i++)
+                    for (var i = 0; i < _spriteChildren.Length; i++)
                     {
-                        var child = _children[i];
+                        var child = _spriteChildren[i];
                         if (child != null) { child.SortingOrder = value; }
                     }
                 }
@@ -62,11 +62,11 @@ namespace FarrokhGames.SpriteAnimation.Sprite
             set
             {
                 // Flip children
-                if (_animateChildren && _children != null && _children.Length > 0)
+                if (_animateChildren && _spriteChildren != null && _spriteChildren.Length > 0)
                 {
-                    for (var i = 0; i < _children.Length; i++)
+                    for (var i = 0; i < _spriteChildren.Length; i++)
                     {
-                        var child = _children[i];
+                        var child = _spriteChildren[i];
                         if (child != null) { child.Flip = value; }
                     }
                 }
@@ -82,11 +82,11 @@ namespace FarrokhGames.SpriteAnimation.Sprite
             set
             {
                 // Change color of children
-                if (_animateChildren && _children != null && _children.Length > 0)
+                if (_animateChildren && _spriteChildren != null && _spriteChildren.Length > 0)
                 {
-                    for (var i = 0; i < _children.Length; i++)
+                    for (var i = 0; i < _spriteChildren.Length; i++)
                     {
-                        var child = _children[i];
+                        var child = _spriteChildren[i];
                         if (child != null) { child.Color = value; }
                     }
                 }
@@ -113,7 +113,7 @@ namespace FarrokhGames.SpriteAnimation.Sprite
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();
             _sortingOffset = _spriteRenderer.sortingOrder;
-            _children = GetListOfChildren<SpriteAnimator>();
+            _spriteChildren = GetListOfChildren<SpriteAnimator>();
         }
 
         #endregion
