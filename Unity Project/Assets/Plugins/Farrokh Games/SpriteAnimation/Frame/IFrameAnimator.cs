@@ -15,11 +15,6 @@ namespace FarrokhGames.SpriteAnimation
         Action<int> OnFrameChanged { get; set; }
 
         /// <summary>
-        /// Returns true if this animator can play clips of parent animator
-        /// </summary>
-        bool AllowClipSharing { get; }
-
-        /// <summary>
         /// Ticks the animator using given delta time
         /// This must be done in order to run the animations
         /// </summary>

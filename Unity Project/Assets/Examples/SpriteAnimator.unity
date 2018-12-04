@@ -113,6 +113,51 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &182279353
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 182279354}
+  - component: {fileID: 182279355}
+  m_Layer: 0
+  m_Name: Transform Animator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &182279354
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 182279353}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 518279431}
+  m_Father: {fileID: 587472067}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &182279355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 182279353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 389eeb5cffe4a454990fb18abd5b35d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _clips:
+  - Walk
+  _childMode: 0
+  _allowFlipping: 0
 --- !u!1 &354129894
 GameObject:
   m_ObjectHideFlags: 0
@@ -159,6 +204,7 @@ MonoBehaviour:
   - Walk
   _withChildren: 1
   _stopMode: 0
+  _childMode: 0
   _allowFlipping: 1
 --- !u!199 &354129897
 ParticleSystemRenderer:
@@ -4786,8 +4832,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.22, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 587472067}
-  m_RootOrder: 2
+  m_Father: {fileID: 182279354}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &518279432
 MonoBehaviour:
@@ -4801,38 +4847,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sprites:
-  - {fileID: 0}
   - {fileID: 21300070, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
   - {fileID: 21300072, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
   - {fileID: 21300074, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
   _clips:
   - _name: Idle
-    _loop: 0
+    _loop: 1
     _randomStart: 0
     _frameRate: 12
     _frames:
     - _index: 0
       _speed: 1
       _triggerName: 
-  - _name: Walk
-    _loop: 1
-    _randomStart: 0
-    _frameRate: 12
-    _frames:
     - _index: 1
       _speed: 1
       _triggerName: 
     - _index: 2
       _speed: 1
       _triggerName: 
-    - _index: 1
-      _speed: 1
-      _triggerName: 
-    - _index: 3
-      _speed: 1
-      _triggerName: 
   _animateChildren: 0
-  _allowClipSharing: 0
+  _childMode: 2
   _allowFlipping: 0
 --- !u!212 &518279433
 SpriteRenderer:
@@ -5064,7 +5098,7 @@ MonoBehaviour:
       _speed: 1
       _triggerName: 
   _animateChildren: 1
-  _allowClipSharing: 0
+  _childMode: 2
   _allowFlipping: 1
 --- !u!212 &587472066
 SpriteRenderer:
@@ -5124,7 +5158,7 @@ Transform:
   m_Children:
   - {fileID: 1771483277}
   - {fileID: 1024155826}
-  - {fileID: 518279431}
+  - {fileID: 182279354}
   - {fileID: 354129895}
   m_Father: {fileID: 0}
   m_RootOrder: 1
@@ -5308,7 +5342,7 @@ MonoBehaviour:
       _speed: 1
       _triggerName: 
   _animateChildren: 0
-  _allowClipSharing: 0
+  _childMode: 0
   _allowFlipping: 1
 --- !u!212 &1024155828
 SpriteRenderer:
@@ -5403,7 +5437,7 @@ MonoBehaviour:
   - {fileID: 21300068, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
   _clips: []
   _animateChildren: 0
-  _allowClipSharing: 1
+  _childMode: 1
   _allowFlipping: 1
 --- !u!212 &1771483276
 SpriteRenderer:

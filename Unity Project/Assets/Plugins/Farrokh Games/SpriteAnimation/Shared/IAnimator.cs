@@ -1,4 +1,5 @@
 using System;
+using FarrokhGames.SpriteAnimation.Shared;
 
 namespace FarrokhGames.SpriteAnimation
 {
@@ -53,5 +54,10 @@ namespace FarrokhGames.SpriteAnimation
         /// Gets or sets wether to flip this animator or not
         /// </summary>
         bool Flip { get; set; }
+
+        /// <summary>
+        /// How to handle the relationship with a parent animator
+        /// </summary>
+        AnimatorChildMode ChildMode { get; }
     }
 }

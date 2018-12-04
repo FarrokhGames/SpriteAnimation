@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using FarrokhGames.SpriteAnimation.Shared;
 using UnityEngine;
 
 namespace FarrokhGames.SpriteAnimation.Frame
@@ -24,14 +25,14 @@ namespace FarrokhGames.SpriteAnimation.Frame
         public bool IsPlaying { get { return _isPlaying; } }
 
         /// <inheritdoc />
-        public bool AllowClipSharing { get { return _allowClipSharing; } }
+        public AnimatorChildMode ChildMode { get { return _childMode; } }
 
         IClip[] _clips = null;
         IClip _currentClip = null;
         IAnimator[] _children;
         Dictionary<string, IClip> _nameToClip = new Dictionary<string, IClip>();
         bool _isPlaying;
-        bool _allowClipSharing;
+        AnimatorChildMode _childMode;
         float _currentTime;
         int _currentFrameIndex;
 
@@ -39,13 +40,12 @@ namespace FarrokhGames.SpriteAnimation.Frame
         /// CTOR
         /// </summary>
         /// <param name="clips">(Optional) The clips associated with this animator</param>
-        /// <param name="children">(Optional) The children of this animator</param>
-        /// <param name="allowClipSharing">(Optional) Wether other animators are allowed to share their clips with this animator</param>
-        public FrameAnimator(IClip[] clips = null, bool allowClipSharing = true)
+        /// <param name="childMode">(Optional) How to handle the relationship with a parent animator</param>
+        public FrameAnimator(IClip[] clips = null, AnimatorChildMode childMode = AnimatorChildMode.PlayWithParent)
         {
 
             _clips = clips;
-            _allowClipSharing = allowClipSharing;
+            _childMode = childMode;
 
             if (clips != null)
             {
@@ -78,7 +78,7 @@ namespace FarrokhGames.SpriteAnimation.Frame
         /// <inheritdoc />
         public void Play(IClip clip)
         {
-            if (clip != null && _currentClip != clip && (_clips.Contains(clip) || _allowClipSharing))
+            if (clip != null && _currentClip != clip && (_clips.Contains(clip) || ChildMode == AnimatorChildMode.ShareClipsWithParent))
             {
                 _currentClip = clip;
                 _currentTime = 0f;
@@ -92,7 +92,7 @@ namespace FarrokhGames.SpriteAnimation.Frame
                     for (var i = 0; i < _children.Length; i++)
                     {
                         var animator = _children[i];
-                        if (animator != null)
+                        if (animator != null && animator.ChildMode != AnimatorChildMode.IgnoreParent)
                         {
                             animator.Play(clip.Name);
                             animator.Play(clip);

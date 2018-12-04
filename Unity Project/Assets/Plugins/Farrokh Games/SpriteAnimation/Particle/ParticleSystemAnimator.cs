@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using FarrokhGames.SpriteAnimation.Shared;
 using UnityEngine;
 
 namespace FarrokhGames.SpriteAnimation.Particle
@@ -13,6 +14,7 @@ namespace FarrokhGames.SpriteAnimation.Particle
         [SerializeField, Tooltip("The clip names that will trigger this particle system")] string[] _clips;
         [SerializeField, Tooltip("Wether the particle system should operate together with its children")] bool _withChildren;
         [SerializeField, Tooltip("How should the particle system behave when stopping an animation")] StopMode _stopMode;
+        [SerializeField, Tooltip("How to handle the relationship with a parent animator")] AnimatorChildMode _childMode;
         [SerializeField, Tooltip("If false, any attempts to flip this image is suppressed")] bool _allowFlipping = true;
 
         ParticleSystem _particleSystem;
@@ -44,6 +46,9 @@ namespace FarrokhGames.SpriteAnimation.Particle
 
         /// <inheritdoc />
         public IClip CurrentClip { get { return null; } }
+
+        /// <inheritdoc />
+        public AnimatorChildMode ChildMode { get { return _childMode; } }
 
         /// <inheritdoc />
         public bool Flip
@@ -113,17 +118,17 @@ namespace FarrokhGames.SpriteAnimation.Particle
             }
         }
 
+        public void Dispose()
+        {
+            // Do nothing
+        }
+
         #region MonoBehavior (Unity)
 
         void Awake()
         {
             _particleSystem = GetComponent<ParticleSystem>();
             _startScale = gameObject.transform.localScale;
-        }
-
-        public void Dispose()
-        {
-            throw new NotImplementedException();
         }
 
         #endregion

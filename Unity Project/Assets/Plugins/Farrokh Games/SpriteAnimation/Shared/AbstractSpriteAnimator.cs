@@ -10,7 +10,7 @@ namespace FarrokhGames.SpriteAnimation.Shared
         [SerializeField, Tooltip("A list of sprites to use with this animator. A frames index directly corresponds to an index in this list.")] protected UnityEngine.Sprite[] _sprites;
         [SerializeField, Tooltip("The clips that can be used by this animator")] protected Clip[] _clips;
         [SerializeField, Tooltip("If true, any children under this animator will be played, paused and resumed together with this parent")] protected bool _animateChildren = true;
-        [SerializeField, Tooltip("Wether other animators are allowed to share their clips with this animator")] protected bool _allowClipSharing = true;
+        [SerializeField, Tooltip("How to handle the relationship with a parent animator")] AnimatorChildMode _childMode;
         [SerializeField, Tooltip("If false, any attempts to flip this image is suppressed")] protected bool _allowFlipping = true;
 
         internal IFrameAnimator _frameAnimator;
@@ -26,6 +26,9 @@ namespace FarrokhGames.SpriteAnimation.Shared
 
         /// <inheritdoc />
         public IClip CurrentClip { get { return _frameAnimator.CurrentClip; } }
+
+        /// <inheritdoc />
+        public AnimatorChildMode ChildMode { get { return _childMode; } }
 
         /// <inheritdoc />
         public abstract bool Flip { get; set; }
@@ -87,7 +90,7 @@ namespace FarrokhGames.SpriteAnimation.Shared
 
         void Awake()
         {
-            _frameAnimator = new FrameAnimator(_clips, _allowClipSharing);
+            _frameAnimator = new FrameAnimator(_clips, _childMode);
             Init();
         }
 
