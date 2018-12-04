@@ -188,9 +188,9 @@ MonoBehaviour:
       _speed: 1
       _triggerName: 
   _animateChildren: 0
-  _allowClipSharing: 0
-  _forceNativeSize: 1
+  _childMode: 0
   _allowFlipping: 1
+  _forceNativeSize: 1
 --- !u!114 &301391860
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -225,6 +225,51 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 301391856}
   m_CullTransparentMesh: 0
+--- !u!1 &514188852
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 514188853}
+  - component: {fileID: 514188854}
+  m_Layer: 0
+  m_Name: Walk Transform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &514188853
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 514188852}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -304.33334, y: -110.333336, z: 0}
+  m_LocalScale: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
+  m_Children:
+  - {fileID: 1374789991}
+  m_Father: {fileID: 1297135162}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &514188854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 514188852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 389eeb5cffe4a454990fb18abd5b35d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _clips:
+  - Walk
+  _childMode: 0
+  _allowFlipping: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -462,9 +507,9 @@ MonoBehaviour:
   - {fileID: 21300036, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
   _clips: []
   _animateChildren: 0
-  _allowClipSharing: 1
-  _forceNativeSize: 1
+  _childMode: 1
   _allowFlipping: 1
+  _forceNativeSize: 1
 --- !u!114 &729235797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -565,9 +610,9 @@ MonoBehaviour:
   - {fileID: 21300068, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
   _clips: []
   _animateChildren: 0
-  _allowClipSharing: 1
-  _forceNativeSize: 1
+  _childMode: 1
   _allowFlipping: 1
+  _forceNativeSize: 1
 --- !u!114 &814860044
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -697,7 +742,7 @@ RectTransform:
   - {fileID: 301391857}
   - {fileID: 814860041}
   - {fileID: 729235794}
-  - {fileID: 1374789991}
+  - {fileID: 514188853}
   m_Father: {fileID: 520607782}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -794,9 +839,9 @@ MonoBehaviour:
       _speed: 1
       _triggerName: 
   _animateChildren: 1
-  _allowClipSharing: 0
-  _forceNativeSize: 1
+  _childMode: 0
   _allowFlipping: 0
+  _forceNativeSize: 1
 --- !u!114 &1297135164
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -967,14 +1012,14 @@ RectTransform:
   m_GameObject: {fileID: 1374789990}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children: []
-  m_Father: {fileID: 1297135162}
-  m_RootOrder: 3
+  m_Father: {fileID: 514188853}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 22}
+  m_AnchoredPosition: {x: 913, y: 397}
   m_SizeDelta: {x: 64, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1374789992
@@ -989,37 +1034,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sprites:
-  - {fileID: 21300076, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
   - {fileID: 21300070, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
   - {fileID: 21300072, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
   - {fileID: 21300074, guid: 3493936f2f6604a9c97c9a82a64875b8, type: 3}
   _clips:
   - _name: Idle
-    _loop: 0
-    _randomStart: 0
-    _frameRate: 0
-    _frames:
-    - _index: 0
-      _speed: 1
-      _triggerName: 
-  - _name: Walk
     _loop: 1
     _randomStart: 0
     _frameRate: 12
     _frames:
+    - _index: 0
+      _speed: 1
+      _triggerName: 
     - _index: 1
+      _speed: 1
+      _triggerName: 
+    - _index: 0
       _speed: 1
       _triggerName: 
     - _index: 2
       _speed: 1
       _triggerName: 
-    - _index: 3
-      _speed: 1
-      _triggerName: 
   _animateChildren: 0
-  _allowClipSharing: 0
-  _forceNativeSize: 1
+  _childMode: 2
   _allowFlipping: 0
+  _forceNativeSize: 1
 --- !u!114 &1374789994
 MonoBehaviour:
   m_ObjectHideFlags: 0

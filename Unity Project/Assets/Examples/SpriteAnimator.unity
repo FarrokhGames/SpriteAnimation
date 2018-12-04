@@ -4862,6 +4862,9 @@ MonoBehaviour:
     - _index: 1
       _speed: 1
       _triggerName: 
+    - _index: 0
+      _speed: 1
+      _triggerName: 
     - _index: 2
       _speed: 1
       _triggerName: 
