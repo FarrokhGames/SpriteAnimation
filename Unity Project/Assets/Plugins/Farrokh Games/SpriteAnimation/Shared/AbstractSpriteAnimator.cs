@@ -96,8 +96,11 @@ namespace FarrokhGames.SpriteAnimation.Shared
 
         void Start()
         {
-            var childAnimators = GetComponentsInChildren<IAnimator>().Where(x => !x.Equals(this)).ToArray();
-            _frameAnimator.SetChildren(childAnimators);
+            if (_animateChildren)
+            {
+                var childAnimators = GetComponentsInChildren<IAnimator>().Where(x => !x.Equals(this)).ToArray();
+                _frameAnimator.SetChildren(childAnimators);
+            }
 
             // Start first animation
             if (!_frameAnimator.IsPlaying && _clips != null && _clips.Length > 0)
