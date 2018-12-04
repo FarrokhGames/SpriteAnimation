@@ -124,7 +124,7 @@ namespace FarrokhGames.SpriteAnimation.Frame
                 for (var i = 0; i < _children.Length; i++)
                 {
                     var animator = _children[i];
-                    if (animator != null)
+                    if (animator != null && animator.ChildMode != AnimatorChildMode.IgnoreParent)
                     {
                         animator.Pause();
                     }
@@ -143,7 +143,7 @@ namespace FarrokhGames.SpriteAnimation.Frame
                 for (var i = 0; i < _children.Length; i++)
                 {
                     var animator = _children[i];
-                    if (animator != null)
+                    if (animator != null && animator.ChildMode != AnimatorChildMode.IgnoreParent)
                     {
                         animator.Resume();
                     }
