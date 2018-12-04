@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using FarrokhGames.SpriteAnimation.Frame;
+using FarrokhGames.SpriteAnimation.Shared;
 using NSubstitute;
 using NUnit.Framework;
 
@@ -32,7 +33,7 @@ namespace FarrokhGames.SpriteAnimation
             var frame2 = CreateFrame(3, 1f);
             _clip[2].Returns(frame2);
 
-            _animator = new FrameAnimator();
+            _animator = new FrameAnimator(new IClip[] { _clip });
 
             _lastIndex = -1;
             _onFrameChangedCount = 0;
@@ -60,6 +61,7 @@ namespace FarrokhGames.SpriteAnimation
             frame.Index.Returns(index);
             frame.Speed.Returns(speed);
             frame.TriggerName.Returns(trigger);
+            frame.HasTrigger.Returns(!string.IsNullOrEmpty(trigger));
             return frame;
         }
 
@@ -119,7 +121,7 @@ namespace FarrokhGames.SpriteAnimation
         {
             _animator.Play(_clip);
             Assert.That(_onFrameChangedCount, Is.EqualTo(1));
-            Assert.That(_lastIndex, Is.EqualTo(0));
+            Assert.That(_lastIndex, Is.EqualTo(1));
         }
 
         [Test]
@@ -129,15 +131,15 @@ namespace FarrokhGames.SpriteAnimation
             _clip.RandomStart.Returns(true);
             for (var i = 0; i < 100; i++)
             {
-                var animator = new FrameAnimator();
+                var animator = new FrameAnimator(new IClip[] { _clip });
                 animator.OnFrameChanged += (index) =>
                 {
                     _startingFrames.Add(index);
                 };
                 animator.Play(_clip);
             }
-            var distinctCunt = _startingFrames.Distinct().Count();
-            Assert.That(distinctCunt, Is.GreaterThan(1));
+            var distinctCount = _startingFrames.Distinct().Count();
+            Assert.That(distinctCount, Is.GreaterThan(1));
         }
 
         [Test]
@@ -148,7 +150,7 @@ namespace FarrokhGames.SpriteAnimation
             _onFrameChangedCount = 0;
             _animator.Play(_clip);
             Assert.That(_onFrameChangedCount, Is.Zero);
-            Assert.That(_lastIndex, Is.EqualTo(2));
+            Assert.That(_lastIndex, Is.EqualTo(3));
         }
 
         [Test]

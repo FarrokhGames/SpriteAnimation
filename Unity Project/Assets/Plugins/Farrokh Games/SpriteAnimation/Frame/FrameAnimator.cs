@@ -78,7 +78,7 @@ namespace FarrokhGames.SpriteAnimation.Frame
         /// <inheritdoc />
         public void Play(IClip clip)
         {
-            if (clip != null && _currentClip != clip && (_clips.Contains(clip) || ChildMode == AnimatorChildMode.ShareClipsWithParent))
+            if (clip != null && _currentClip != clip && ((_clips != null && _clips.Contains(clip)) || ChildMode == AnimatorChildMode.ShareClipsWithParent))
             {
                 _currentClip = clip;
                 _currentTime = 0f;
