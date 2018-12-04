@@ -170,6 +170,39 @@ namespace FarrokhGames.SpriteAnimation
             Assert.That(_onFrameChangedCount, Is.EqualTo(3));
         }
 
+        [Test]
+        public void Play_WithChildren_IgnoreParent()
+        {
+            var child = Substitute.For<IAnimator>();
+            child.ChildMode.Returns(AnimatorChildMode.IgnoreParent);
+            _animator.SetChildren(new IAnimator[] { child });
+            _animator.Play(_clip);
+            child.DidNotReceive().Play(_clip);
+            child.DidNotReceive().Play(_clip.Name);
+        }
+
+        [Test]
+        public void Play_WithChildren_PlayWithParent()
+        {
+            var child = Substitute.For<IAnimator>();
+            child.ChildMode.Returns(AnimatorChildMode.PlayWithParent);
+            _animator.SetChildren(new IAnimator[] { child });
+            _animator.Play(_clip);
+            child.DidNotReceive().Play(_clip);
+            child.Received(1).Play(_clip.Name);
+        }
+
+        [Test]
+        public void Play_WithChildren_ShareClipsWithParent()
+        {
+            var child = Substitute.For<IAnimator>();
+            child.ChildMode.Returns(AnimatorChildMode.ShareClipsWithParent);
+            _animator.SetChildren(new IAnimator[] { child });
+            _animator.Play(_clip);
+            child.Received(1).Play(_clip);
+            child.DidNotReceive().Play(_clip.Name);
+        }
+
         /////////////////// 
         ///    Pause    ///
         ///////////////////
@@ -195,6 +228,36 @@ namespace FarrokhGames.SpriteAnimation
             _animator.Play(_clip);
             _animator.Pause();
             Assert.That(_animator.CurrentClip, Is.SameAs(_clip));
+        }
+
+        [Test]
+        public void Pause_WithChildren_IgnoreParent()
+        {
+            var child = Substitute.For<IAnimator>();
+            child.ChildMode.Returns(AnimatorChildMode.IgnoreParent);
+            _animator.SetChildren(new IAnimator[] { child });
+            _animator.Pause();
+            child.DidNotReceive().Pause();
+        }
+
+        [Test]
+        public void Pause_WithChildren_PlayWithParent()
+        {
+            var child = Substitute.For<IAnimator>();
+            child.ChildMode.Returns(AnimatorChildMode.PlayWithParent);
+            _animator.SetChildren(new IAnimator[] { child });
+            _animator.Pause();
+            child.Received(1).Pause();
+        }
+
+        [Test]
+        public void Pause_WithChildren_ShareClipsWithParent()
+        {
+            var child = Substitute.For<IAnimator>();
+            child.ChildMode.Returns(AnimatorChildMode.ShareClipsWithParent);
+            _animator.SetChildren(new IAnimator[] { child });
+            _animator.Pause();
+            child.Received(1).Pause();
         }
 
         //////////////////// 
@@ -225,6 +288,36 @@ namespace FarrokhGames.SpriteAnimation
             _animator.Pause();
             _animator.Resume();
             Assert.That(_animator.CurrentClip, Is.SameAs(_clip));
+        }
+
+        [Test]
+        public void Resume_WithChildren_IgnoreParent()
+        {
+            var child = Substitute.For<IAnimator>();
+            child.ChildMode.Returns(AnimatorChildMode.IgnoreParent);
+            _animator.SetChildren(new IAnimator[] { child });
+            _animator.Resume();
+            child.DidNotReceive().Resume();
+        }
+
+        [Test]
+        public void Resume_WithChildren_PlayWithParent()
+        {
+            var child = Substitute.For<IAnimator>();
+            child.ChildMode.Returns(AnimatorChildMode.PlayWithParent);
+            _animator.SetChildren(new IAnimator[] { child });
+            _animator.Resume();
+            child.Received(1).Resume();
+        }
+
+        [Test]
+        public void Resume_WithChildren_ShareClipsWithParent()
+        {
+            var child = Substitute.For<IAnimator>();
+            child.ChildMode.Returns(AnimatorChildMode.ShareClipsWithParent);
+            _animator.SetChildren(new IAnimator[] { child });
+            _animator.Resume();
+            child.Received(1).Resume();
         }
 
         //////////////////// 
@@ -271,5 +364,6 @@ namespace FarrokhGames.SpriteAnimation
             Assert.That(_onTriggerCount, Is.EqualTo(10));
             Assert.That(_lastTrigger, Is.EqualTo("trigger"));
         }
+
     }
 }

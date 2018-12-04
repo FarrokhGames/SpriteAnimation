@@ -43,7 +43,6 @@ namespace FarrokhGames.SpriteAnimation.Frame
         /// <param name="childMode">(Optional) How to handle the relationship with a parent animator</param>
         public FrameAnimator(IClip[] clips = null, AnimatorChildMode childMode = AnimatorChildMode.PlayWithParent)
         {
-
             _clips = clips;
             _childMode = childMode;
 
@@ -78,7 +77,7 @@ namespace FarrokhGames.SpriteAnimation.Frame
         /// <inheritdoc />
         public void Play(IClip clip)
         {
-            if (clip != null && _currentClip != clip && ((_clips != null && _clips.Contains(clip)) || ChildMode == AnimatorChildMode.ShareClipsWithParent))
+            if (clip != null && _currentClip != clip)
             {
                 _currentClip = clip;
                 _currentTime = 0f;
@@ -94,8 +93,14 @@ namespace FarrokhGames.SpriteAnimation.Frame
                         var animator = _children[i];
                         if (animator != null && animator.ChildMode != AnimatorChildMode.IgnoreParent)
                         {
-                            animator.Play(clip.Name);
-                            animator.Play(clip);
+                            if (animator.ChildMode == AnimatorChildMode.PlayWithParent)
+                            {
+                                animator.Play(clip.Name);
+                            }
+                            else if (animator.ChildMode == AnimatorChildMode.ShareClipsWithParent)
+                            {
+                                animator.Play(clip);
+                            }
                         }
                     }
                 }
